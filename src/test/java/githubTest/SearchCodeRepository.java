@@ -1,15 +1,12 @@
-package org.example.demoqa;
-
-import com.codeborne.selenide.Condition;
+package githubTest;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-
-public class SelenideRepositorySearch {
+public class SearchCodeRepository {
     @BeforeAll
     public static void setUp() {
         Configuration.pageLoadTimeout = 60000;  // Таймаут загрузки страницы 60 секунд
@@ -18,12 +15,16 @@ public class SelenideRepositorySearch {
 
     }
     @Test
-    void shoulFindSelenideRepositoryAtTheTop() {
+    public void searchCodeRepository() {
         open("https://github.com");
         $(".header-search-button").click();
         $("[id=query-builder-test]").setValue("selenide").pressEnter();
         $$("[data-testid=results-list]").first().$("a").click();
-        $("#repository-container-header").shouldHave(text("selenide / selenide"));
+        $("#wiki-tab").click();
+        $(".f6").click();
+        $("#wiki-pages-box").shouldHave(text("SoftAssertions"));
+        $(byText("SoftAssertions")).click();
+        $(".markdown-body").shouldHave(text("Using JUnit5 extend test class:"));
         sleep(5000);
     }
 }

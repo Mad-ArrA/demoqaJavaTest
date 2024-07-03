@@ -1,4 +1,4 @@
-package org.example.demoqa;
+package example;
 
 import org.junit.jupiter.api.*;
 
